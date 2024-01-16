@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header/Header';
+import Home from './components/Home/Home'
+import BarShow from './components/Header/BarShow';
+import { useEffect, useState } from 'react';
 
 function App() {
+  let[checker,setChecker]= useState(false);
+  function BarSelect(check){
+        setChecker(check);
+  }
+  let[display,setDisplay]= useState('none');
+  useEffect(()=>{
+    if(checker){
+      setDisplay('block');
+    }else{
+      setDisplay('none');
+    }
+  },[checker]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Header select={BarSelect}></Header>
+        <BarShow check={display}></BarShow>
+        <Home></Home>
     </div>
   );
 }
